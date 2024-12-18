@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://example.org/inventory"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             targetNamespace="http://example.org/inventory"
+             name="InventoryService">
+    <message name="updateStockRequest">
+        <part name="itemID" type="xsd:string"/>
+        <part name="quantity" type="xsd:int"/>
+    </message>
+    <message name="updateStockResponse">
+        <part name="status" type="xsd:string"/>
+        <part name="message" type="xsd:string"/>
+        <part name="updatedStock" type="xsd:int"/>
+    </message>
+    <portType name="InventoryPortType">
+        <operation name="updateStock">
+            <input message="tns:updateStockRequest"/>
+            <output message="tns:updateStockResponse"/>
+        </operation>
+    </portType>
+    <binding name="InventoryBinding" type="tns:InventoryPortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="updateStock">
+            <soap:operation soapAction="updateStock"/>
+            <input>
+                <soap:body use="encoded" namespace="http://example.org/inventory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="http://example.org/inventory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="InventoryService">
+        <port name="InventoryPort" binding="tns:InventoryBinding">
+            <soap:address location="http://localhost/inventory/server.php"/>
+        </port>
+    </service>
+</definitions>
