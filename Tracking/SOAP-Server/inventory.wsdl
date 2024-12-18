@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="TrackingService"
+    targetNamespace="http://localhost/trackingApp/soap_server/server.php"
+    xmlns:tns="http://localhost/trackingApp/soap_server/server.php"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://localhost/trackingApp/soap_server/server.php">
+            <xsd:element name="getStatusUpdateRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="trackingId" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getStatusUpdateResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="status" type="xsd:string"/>
+                        <xsd:element name="lastUpdated" type="xsd:dateTime"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="getStatusUpdateRequest">
+        <wsdl:part name="parameters" element="tns:getStatusUpdateRequest"/>
+    </wsdl:message>
+
+    <wsdl:message name="getStatusUpdateResponse">
+        <wsdl:part name="parameters" element="tns:getStatusUpdateResponse"/>
+    </wsdl:message>
+
+    <wsdl:portType name="TrackingPort">
+        <wsdl:operation name="getStatusUpdate">
+            <wsdl:input message="tns:getStatusUpdateRequest"/>
+            <wsdl:output message="tns:getStatusUpdateResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="TrackingBinding" type="tns:TrackingPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getStatusUpdate">
+            <soap:operation soapAction="getStatusUpdate"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="TrackingService">
+        <wsdl:port name="TrackingPort" binding="tns:TrackingBinding">
+            <soap:address location="http://localhost/trackingApp/soap_server/server.php"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
