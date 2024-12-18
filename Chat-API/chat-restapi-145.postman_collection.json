@@ -1,0 +1,49 @@
+{
+	"info": {
+		"_postman_id": "2e075b62-58ea-4d64-9e2a-dcba7d93a45a",
+		"name": "chat-restapi-145",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "34541323"
+	},
+	"item": [
+		{
+			"name": "GetMessages",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost/chat-api/index.php"
+			},
+			"response": []
+		},
+		{
+			"name": "SendMessage",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"sender\": \"customer\",\r\n  \"message\": \"Halo, saya ingin bertanya tentang produk.\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost/chat-api/index.php"
+			},
+			"response": []
+		}
+	]
+}
