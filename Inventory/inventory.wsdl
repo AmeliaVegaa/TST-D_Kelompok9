@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="InventoryService"
+             targetNamespace="http://localhost/integrasi/inventory"
+             xmlns:tns="http://localhost/integrasi/inventory"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   
+    <!-- Message for Add Item Request -->
+    <message name="addItemRequest">
+        <part name="itemName" type="xsd:string"/>
+        <part name="stock" type="xsd:int"/>
+    </message>
+   
+    <!-- Message for Add Item Response -->
+    <message name="addItemResponse">
+        <part name="status" type="xsd:string"/>
+    </message>
+   
+    <!-- Message for Get Item Request -->
+    <message name="getItemRequest">
+        <part name="itemName" type="xsd:string"/>
+    </message>
+   
+    <!-- Message for Get Item Response -->
+    <message name="getItemResponse">
+        <part name="itemName" type="xsd:string"/>
+        <part name="stock" type="xsd:int"/>
+        <part name="status" type="xsd:string"/>
+    </message>
+   
+    <!-- Port Type -->
+    <portType name="InventoryServicePortType">
+        <operation name="addItem">
+            <input message="tns:addItemRequest"/>
+            <output message="tns:addItemResponse"/>
+        </operation>
+        <operation name="getItem">
+            <input message="tns:getItemRequest"/>
+            <output message="tns:getItemResponse"/>
+        </operation>
+    </portType>
+   
+    <!-- Binding -->
+    <binding name="InventoryServiceBinding" type="tns:InventoryServicePortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="addItem">
+            <soap:operation soapAction="http://localhost/integrasi/inventory/addItem"/>
+            <input>
+                <soap:body use="encoded" namespace="http://localhost/integrasi/inventory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="http://localhost/integrasi/inventory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="getItem">
+            <soap:operation soapAction="http://localhost/integrasi/inventory/getItem"/>
+            <input>
+                <soap:body use="encoded" namespace="http://localhost/integrasi/inventory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="http://localhost/integrasi/inventory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+    </binding>
+   
+    <!-- Service -->
+    <service name="InventoryService">
+        <port name="InventoryServicePort" binding="tns:InventoryServiceBinding">
+            <soap:address location="http://localhost/integrasi/inventory/inventory.php"/>
+        </port>
+    </service>
+</definitions>
